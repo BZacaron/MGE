@@ -1,6 +1,8 @@
+using MGE.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,9 @@ namespace MGE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var serverVersion = new MySqlServerVersion(new Version(8,0,22));
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("MGEDb"), serverVersion));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
