@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MGE.Models.Parametros;
 
 namespace MGE
 {
@@ -29,6 +30,9 @@ namespace MGE
 
             var serverVersion = new MySqlServerVersion(new Version(8,0,22));
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("MGEDb"), serverVersion));
+
+            //Adicionar os Services da camada Model
+            services.AddTransient<ParametrosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
