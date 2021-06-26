@@ -15,7 +15,9 @@ namespace MGE.RequestModels.Parametros
         //Validação a nível de controller
         public ICollection<string> ValidarEFiltrar()
         {
+            var listaDeErros = new List<string>();
 
+            return listaDeErros;
         }
     }
 }
