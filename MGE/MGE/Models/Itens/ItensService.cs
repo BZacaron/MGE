@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MGE.Models.Item
+namespace MGE.Models.Itens
 {
-    public class ItemService
+    public class ItensService
     {
         private readonly DatabaseContext _databaseContext;
 
-        public ItemService(DatabaseContext databaseContext)
+        public ItensService(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }
 
-        public ICollection<ItemEntity> ObterTodos()
+        public ICollection<ItensEntity> ObterTodos()
         {
             return _databaseContext.Itens.ToList();
         }
 
-        public ItemEntity ObterPorId(int id)
+        public ItensEntity ObterPorId(int id)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace MGE.Models.Item
             }
         }
 
-        public ItemEntity Adicionar(IDadosBasicosItensModel dadosBasicos)
+        public ItensEntity Adicionar(IDadosBasicosItensModel dadosBasicos)
         {
             var novaEntidade = ValidarDadosBasicos(dadosBasicos);
             _databaseContext.Itens.Add(novaEntidade);
@@ -41,7 +41,7 @@ namespace MGE.Models.Item
             return novaEntidade;
         }
 
-        public ItemEntity Editar(int id, IDadosBasicosItensModel dadosBasicos)
+        public ItensEntity Editar(int id, IDadosBasicosItensModel dadosBasicos)
         {
             var entidadeAEditar = ObterPorId(id);
             entidadeAEditar = ValidarDadosBasicos(dadosBasicos, entidadeAEditar);
@@ -59,9 +59,9 @@ namespace MGE.Models.Item
             return true;
         }
 
-        private ItemEntity ValidarDadosBasicos(IDadosBasicosItensModel dadosBasicos, ItemEntity entidadeExistente = null)
+        private ItensEntity ValidarDadosBasicos(IDadosBasicosItensModel dadosBasicos, ItensEntity entidadeExistente = null)
         {
-            var entidade = entidadeExistente ?? new ItemEntity();
+            var entidade = entidadeExistente ?? new ItensEntity();
 
             //Validações dos campos
             if (dadosBasicos.Categoria == null)
@@ -126,7 +126,7 @@ namespace MGE.Models.Item
             }
             try
             {
-                var valor = Decimal.Parse(dadosBasicos.Descricao);
+                var valor = Decimal.Parse(dadosBasicos.ConsumoWatts);
                 entidade.ConsumoWatts = valor;
             }
             catch
@@ -140,7 +140,7 @@ namespace MGE.Models.Item
             }
             try
             {
-                var valor = int.Parse(dadosBasicos.Descricao);
+                var valor = int.Parse(dadosBasicos.HorasUsoDiario);
                 entidade.HorasUsoDiario = valor;
             }
             catch

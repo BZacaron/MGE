@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MGE.Models.Item
+namespace MGE.Models.Itens
 {
-    public class ItemEntity
+    public class ItensEntity
     {
         public Guid Id { get; set; }
         public CategoriaEntity Categoria { get; set; }
@@ -15,7 +15,7 @@ namespace MGE.Models.Item
         public decimal ConsumoWatts { get; set; }
         public int HorasUsoDiario { get; set; }
 
-        public ItemEntity()
+        public ItensEntity()
         {
             Id = new Guid();
         }

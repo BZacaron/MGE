@@ -15,7 +15,7 @@ namespace MGE.Controllers
 
         public ParametrosController(ParametrosService parametrosService)
         {
-
+            _parametrosService = parametrosService;
         }
 
         public IActionResult Index()
@@ -88,10 +88,9 @@ namespace MGE.Controllers
                 {
                     FormMensagensErro = (string[])TempData["formMensagensErro"],
                     Id = entidadeAEditar.Id.ToString(),
-                    ValorKwh = entidadeAEditar.ValorKwh.ToString("N"),
+                    ValorKwh = entidadeAEditar.ValorKwh.ToString("C"),
                     FaixaConsumoAlto = entidadeAEditar.FaixaConsumoAlto.ToString("N"),
                     FaixaConsumoMedio = entidadeAEditar.FaixaConsumoMedio.ToString("N"),
-
                 };
 
                 return View(viewModel);
