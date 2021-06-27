@@ -1,7 +1,37 @@
-﻿@{
+﻿@model MGE.ViewModels.Home.IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Mapa de Gastos Energéticos</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Categorias que mais consomem energia</h2>
+        </div>
+        <div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Categoria</th>
+                        <th>Consumo Mensal</th>
+                        <th>Valor Mensal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var consumoCategoria in @Model.CategoriasQueMaisConsomem)
+                    {
+                        <tr>
+                            <td>@consumoCategoria.Posicao</td>
+                            <td>@consumoCategoria.NomeCategoria</td>
+                            <td>@consumoCategoria.ConsumoMensalKwh</td>
+                            <td>@consumoCategoria.ValorMensalKwh</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

@@ -10,11 +10,19 @@ namespace MGE.Models.Parametros
     {
         private readonly DatabaseContext _databaseContext;
 
-        public ParametrosService(DatabaseContext databaseContext) { }
+        public ParametrosService(DatabaseContext databaseContext) 
+        {
+            _databaseContext = databaseContext;
+        }
 
         public ICollection<ParametrosEntity> ObterTodos()
         {
             return _databaseContext.Parametros.ToList();
+        }
+
+        public ParametrosEntity ObterParametroAtivo()
+        {
+            return _databaseContext.Parametros.First();
         }
 
         public ParametrosEntity ObterPorId(int id)

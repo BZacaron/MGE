@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MGE.Models.Parametros;
+using MGE.Models;
 
 namespace MGE
 {
@@ -33,6 +34,9 @@ namespace MGE
 
             //Adicionar os Services da camada Model
             services.AddTransient<ParametrosService>();
+            /*services.AddTransient<CategoriaService>();
+            services.AddTransient<ItemService>();*/
+            services.AddTransient<AnalisesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

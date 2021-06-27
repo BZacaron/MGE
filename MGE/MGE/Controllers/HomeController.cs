@@ -1,4 +1,5 @@
 ﻿using MGE.Models;
+using MGE.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,16 +12,31 @@ namespace MGE.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AnalisesService _analisesService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(AnalisesService analisesService)
         {
-            _logger = logger;
+            _analisesService = analisesService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new IndexViewModel();
+
+            var categoriasQueMaisConsomem = _analisesService.CategoriasQueMaisConsomem();
+
+            var posicao = 0;
+            foreach (var consumoEnergia in categoriasQueMaisConsomem)
+            {
+                viewModel.CategoriasQueMaisConsomem.Add(new CategoriaQueConsome
+                {
+                    Posicao = (posicao += 1).ToString(),
+                    NomeCategoria = consumoCategoria.Categoria,
+                    ConsumoMensalKwh = consumoCategoria.ConsumoMensalKwh.ToString("N"),
+                    ValorMensalKwh = consumoCategoria.ValorMensalKwh.ToString("C")
+                });
+            }
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
