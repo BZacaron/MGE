@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MGE.Models.Parametros;
 using MGE.Models;
+using MGE.Models.Itens;
+using MGE.Models.Categorias;
 
 namespace MGE
 {
@@ -34,8 +36,8 @@ namespace MGE
 
             //Adicionar os Services da camada Model
             services.AddTransient<ParametrosService>();
-            /*services.AddTransient<CategoriaService>();
-            services.AddTransient<ItemService>();*/
+            services.AddTransient<CategoriasService>();
+            services.AddTransient<ItensService>();
             services.AddTransient<AnalisesService>();
         }
 
