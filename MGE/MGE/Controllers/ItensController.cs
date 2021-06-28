@@ -33,7 +33,7 @@ namespace MGE.Controllers
                 viewModel.Itens.Add(new Itens()
                 {
                     Id = itensEntity.Id.ToString(),
-                    Categoria = itensEntity.Categoria.ToString("N"),
+                    Categoria = itensEntity.Categoria.ToString(),
                     Nome = itensEntity.Nome,
                     Descricao = itensEntity.Descricao,
                     DataFabricacao = itensEntity.DataFabricacao.ToString("d"),
@@ -94,7 +94,7 @@ namespace MGE.Controllers
                 {
                     FormMensagensErro = (string[])TempData["formMensagensErro"],
                     Id = entidadeAEditar.Id.ToString(),
-                    Categoria = entidadeAEditar.Categoria.ToString("N"),
+                    Categoria = entidadeAEditar.Categoria.ToString(),
                     Nome = entidadeAEditar.Nome,
                     Descricao = entidadeAEditar.Descricao,
                     DataFabricacao = entidadeAEditar.DataFabricacao.ToString("d"),
@@ -149,7 +149,7 @@ namespace MGE.Controllers
                 var viewModel = new RemoverViewModel()
                 {
                     Id = entidadeARemover.Id.ToString(),
-                    Categoria = entidadeARemover.Categoria.ToString("N"),
+                    Categoria = entidadeARemover.Categoria.ToString(),
                     Nome = entidadeARemover.Nome,
                     Descricao = entidadeARemover.Descricao,
                     DataFabricacao = entidadeARemover.DataFabricacao.ToString("d"),

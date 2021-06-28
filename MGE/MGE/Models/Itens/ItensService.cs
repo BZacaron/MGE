@@ -1,4 +1,5 @@
 ﻿using MGE.Data;
+using MGE.Models.Categorias;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace MGE.Models.Itens
     public class ItensService
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly CategoriasService _categoriasService;
 
-        public ItensService(DatabaseContext databaseContext)
+        public ItensService(DatabaseContext databaseContext, CategoriasService categoriasService)
         {
             _databaseContext = databaseContext;
+            _categoriasService = categoriasService;
         }
 
         public ICollection<ItensEntity> ObterTodos()
@@ -30,6 +33,11 @@ namespace MGE.Models.Itens
             {
                 throw new Exception("Item de ID #" + id + " não encontrado");
             }
+        }
+
+        public ICollection<ItensEntity> ObterTodosPorCategoria(int categoriaId)
+        {
+            return _databaseContext.Itens.Where(i => i.Categoria.Id == categoriaId).ToList();
         }
 
         public ItensEntity Adicionar(IDadosBasicosItensModel dadosBasicos)
@@ -70,8 +78,9 @@ namespace MGE.Models.Itens
             }
             try
             {
-                var valor = Guid.Parse(dadosBasicos.Categoria);
-                entidade.Categoria = valor;
+                var valor = int.Parse(dadosBasicos.Categoria);
+                var categoria = _categoriasService.ObterPorId(valor);
+                entidade.Categoria = categoria;
             }
             catch
             {

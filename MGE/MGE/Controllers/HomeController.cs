@@ -26,7 +26,7 @@ namespace MGE.Controllers
             var categoriasQueMaisConsomem = _analisesService.CategoriasQueMaisConsomem();
 
             var posicao = 0;
-            foreach (var consumoEnergia in categoriasQueMaisConsomem)
+            foreach (var consumoCategoria in categoriasQueMaisConsomem)
             {
                 viewModel.CategoriasQueMaisConsomem.Add(new CategoriaQueConsome
                 {

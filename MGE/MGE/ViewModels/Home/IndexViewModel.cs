@@ -12,14 +12,13 @@ namespace MGE.ViewModels.Home
         public IndexViewModel()
         {
             CategoriasQueMaisConsomem = new List<CategoriaQueConsome>();
-        }
-
-        public class CategoriaQueConsome
-        {
-            public string Posicao { get; set; }
-            public string NomeCategoria { get; set; }
-            public string ConsumoMensalKwh { get; set; }
-            public string ValorMensalKwh { get; set; }
-        }
+        }        
+    }
+    public class CategoriaQueConsome
+    {
+        public string Posicao { get; set; }
+        public string NomeCategoria { get; set; }
+        public string ConsumoMensalKwh { get; set; }
+        public string ValorMensalKwh { get; set; }
     }
 }

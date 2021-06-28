@@ -1,4 +1,6 @@
 ﻿using MGE.Data;
+using MGE.Models.Categorias;
+using MGE.Models.Itens;
 using MGE.Models.Parametros;
 using System;
 using System.Collections.Generic;
@@ -10,56 +12,54 @@ namespace MGE.Models
 {
     public class AnalisesService
     {
-        public class AnalisesSerivce 
+
+        private readonly DatabaseContext _databaseContext;
+        private readonly ParametrosService _parametrosService;
+        private readonly CategoriasService _categoriasService;
+        private readonly ItensService _itensService;
+
+        public AnalisesService(DatabaseContext databaseContext, ParametrosService parametrosService, CategoriasService categoriasService, ItensService itensService)
         {
-            private readonly DatabaseContext _databaseContext;
-            private readonly ParametrosService _parametrosService;
-            //private readonly CategoriaService _categoriaService;
-            //private readonly ItemService _itemService;
+            _databaseContext = databaseContext;
+            _parametrosService = parametrosService;
+            _categoriasService = categoriasService;
+            _itensService = itensService;
+        }
 
-            public AnalisesSerivce(DatabaseContext databaseContext, ParametrosService parametrosService/*, CategoriaService categoriaService, ItemService itemService*/)
+        public ICollection<ConsumoCategoria> CategoriasQueMaisConsomem()
+        {
+            var parametrosAtivos = _parametrosService.ObterParametroAtivo();
+            var todasCategorias = _categoriasService.ObterTodos();
+
+            var listaDeConsumos = new Collection<ConsumoCategoria>();
+
+            foreach (var categoriasEntity in todasCategorias)
             {
-                _databaseContext = databaseContext;
-                _parametrosService = parametrosService;
-                //_parametrosService = categoriaService;
-                //_parametrosService = itemService;
-            }
+                var itensDaCategoria = _itensService.ObterTodosPorCategoria(categoriasEntity.Id);
 
-            public ICollection<ConsumoCategoria> CategoriasQueMaisConsomem()
-            {
-                var parametrosAtivos = _parametrosService.ObterParametroAtivo();
-                //var todasCategorias = _categoriaService.ObterTodos();
+                decimal consumoMensalItens = 0;
 
-                var listaDeConsumos = new Collection<ConsumoCategoria>();
-
-                foreach(var categoriaEntity in todasCategorias)
+                foreach (var itensEntity in itensDaCategoria)
                 {
-                    var itensDaCategoria = _itemService.ObterTodosPorCategoria(categoriaEntity.Id);
-
-                    decimal consumoMensalItens = 0;
-
-                    foreach(var itemEntity in itensDaCategoria)
-                    {
-                        consumoMensalItens += itemEntity.CalcularGastoEnergeticoMensalKwh();
-                    }
-
-                    listaDeConsumos.Add(new ConsumoCategoria()
-                    {
-                        Categoria = categoriaEntity.Descricao,
-                        ConsumoMensalKwh = consumoMensalItens,
-                        ValorMensalKwh = consumoMensalItens * parametrosAtivos.ValorKwh
-                    });
+                    consumoMensalItens += itensEntity.CalcularGastoEnergeticoMensalKwh();
                 }
 
-                return listaDeConsumos.OrderByDescending(c => c.ConsumoMensalKwh).Take(3).ToList();
+                listaDeConsumos.Add(new ConsumoCategoria()
+                {
+                    Categoria = categoriasEntity.Descricao,
+                    ConsumoMensalKwh = consumoMensalItens,
+                    ValorMensalKwh = consumoMensalItens * parametrosAtivos.ValorKwh
+                });
             }
-        }
 
-        public class ConsumoCategoria
-        {
-            public string Categoria { get; set; }
-            public decimal ConsumoMensalKwh { get; set; }
-            public decimal ValorMensalKwh { get; set; }
+            return listaDeConsumos.OrderByDescending(c => c.ConsumoMensalKwh).Take(3).ToList();
         }
+    }
+
+    public class ConsumoCategoria
+    {
+        public string Categoria { get; set; }
+        public decimal ConsumoMensalKwh { get; set; }
+        public decimal ValorMensalKwh { get; set; }
     }
 }
