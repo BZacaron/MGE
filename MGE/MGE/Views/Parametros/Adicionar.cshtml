@@ -1,0 +1,46 @@
+﻿@model MGE.ViewModels.Parametros.AdicionarViewModel
+@{
+    ViewData["Title"] = "Adicionar";
+}
+
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Parametros">Voltar para a lista</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Adicionar Parâmetros</h2>
+    </div>
+    <div class="card-body">
+        @if(@Model.FormMensagensErro != null)
+            {
+                <ul class="alert alert-danger">
+                    @foreach(var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+                </ul>
+            }
+
+    <form action="/Parametros/Adicionar" method="post">
+        <div class="form-group">
+            <label for="ValorKwh">Valor do Kwh (em R$)</label>
+            <input id="ValorKwh" name="ValorKwh" class="form-group" type="text" />
+        </div>
+
+        <div class="form-group">
+            <label for="FaixaConsumoAlto">Faixa de consumo alto (em Kwh)</label>
+            <input id="FaixaConsumoAlto" name="FaixaConsumoAlto" class="form-group" type="text" />
+        </div>
+
+        <div class="form-group">
+            <label for="FaixaConsumoMedio">Faixa de consumo médio (em Kwh)</label>
+            <input id="FaixaConsumoMedio" name="FaixaConsumoMedio" class="form-group" type="text" />
+        </div>
+
+        <div class="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Confirmar" />
+        </div>
+    </form>
+    </div>
+</div>

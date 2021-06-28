@@ -1,0 +1,55 @@
+﻿@using MGE.ViewModels.Parametros
+@model MGE.ViewModels.Parametros.IndexViewModel
+@{
+    ViewData["Title"] = "Listagem";
+}
+
+<div class="mb-2">
+    <a class="btn btn-primary" href="/Parametros/Adicionar">Adicionar</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Listagem de Parâmetros</h2>
+    </div>
+    <div class="card-body">
+        @if(@Model.MensagemSucesso != null)
+            {
+                <p class="alert alert-success">@Model.MensagemSucesso</p>
+            }
+        @if(@Model.MensagemErro != null)
+            {
+                <p class="alert alert-danger">@Model.MensagemErro</p>
+            }
+    
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th rowspan="2">Id</th>
+                    <th rowspan="2">Valor Kwh</th>
+                    <th class="text-center" colspan="2">Faixas de Consumo (em Kwh)</th>
+                    <th class="text-center" colspan="2">Ações</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Alto</th>
+                    <th class="text-center">Médio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Parametros parametros in @Model.Parametros)
+            {
+                <tr>
+                    <td>@parametros.Id</td>
+                    <td>@parametros.ValorKwh</td>
+                    <td class="text-center">@parametros.FaixaConsumoAlto</td>
+                    <td class="text-center">@parametros.FaixaConsumoMedio</td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm" href="/Parametros/Editar/@parametros.Id">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/Parametros/Remover/@parametros.Id">Remover</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table> 
+    </div>
+</div>

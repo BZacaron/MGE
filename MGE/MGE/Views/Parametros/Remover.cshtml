@@ -1,0 +1,50 @@
+﻿@model MGE.ViewModels.Parametros.RemoverViewModel
+@{
+    ViewData["Title"] = "Remover";
+}
+
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Parametros">Voltar para listagem</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Remover parâmetro <strong>#@Model.Id</strong></h2>
+    </div>
+    <div class="card-body">
+        @if(@Model.FormMensagensErro != null)
+            {
+                <ul class="alert alert-danger">
+                    @foreach(var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+                </ul>
+            }
+
+        <form action="/Parametros/Remover/@Model.Id" method="post">
+            <div class="form-group">
+                <p>Dados dos Parâmetros a remover</p>
+                <ul>
+                    <li>
+                        <strong>Id: </strong>@Model.Id
+                    </li>
+                    <li>
+                        <strong>Valor do Kwh (em R$): </strong> @Model.ValorKwh
+                    </li>
+                    <li>
+                        <strong>Faixa de consumo alto: </strong> @Model.FaixaConsumoAlto
+                    </li>
+                    <li>
+                        <strong> Faixa de consumo médio:</strong> @Model.FaixaConsumoMedio
+                    </li>
+                </ul>
+                <p><strong>Atenção: </strong>Essa operação não pode ser desfeita!</p>
+            </div>
+
+            <div class="form-group">
+                <input name="confirmar" class="btn btn-primary" type="submit" value="Confirmar" />
+            </div>
+        </form>
+    </div>
+</div>
