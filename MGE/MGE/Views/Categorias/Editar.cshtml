@@ -1,7 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MGE.ViewModels.Categorias.EditarViewModel
+@{
+    ViewData["Title"] = "Editar";
 }
 
-<div class="text-center">
-    <p>Categorias</p>
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Categorias">Voltar para a listagem</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Editar Categoria <strong>#@Model.Id</strong></h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.FormMensagensErro != null)
+        {
+            <ul class="alert alert-danger">
+                @foreach (var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+            </ul>
+        }
+
+    <form action="/Categorias/Editar/@Model.Id" method="post">
+        <div class="form-group">
+            <label for="Descricao">Descricao: </label>
+            <input id="Descricao" name="Descricao" class="form-control" type="text" value="@Model.Descricao" />
+        </div>
+        <div class="form-group">
+            <label for="CategoriaPaiId">ID da Categoria Pai: </label>
+            <input id="CategoriaPaiId" name="CategoriaPaiId" class="form-control" type="text" value="@Model.CategoriaPaiId" />
+        </div>
+
+        <div input="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Salvar alterações" />
+        </div>
+    </form>
+    </div>
 </div>

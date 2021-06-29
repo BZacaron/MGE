@@ -101,10 +101,6 @@ namespace MGE.Models.Itens
                 throw new Exception("O nome possui um formato inválido");
             }
 
-            if (dadosBasicos.Descricao == null)
-            {
-                throw new Exception("O campo descrição é obrigatório");
-            }
             try
             {
                 var valor = dadosBasicos.Descricao;

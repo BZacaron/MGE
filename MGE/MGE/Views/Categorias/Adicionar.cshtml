@@ -1,7 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MGE.ViewModels.Categorias.AdicionarViewModel
+@{
+    ViewData["Title"] = "Adicionar";
 }
 
-<div class="text-center">
-    <p>Categorias</p>
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Categorias">Voltar para listagem</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Adicionar Categoria</h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.FormMensagensErro != null)
+        {
+            <ul class="alert alert-danger">
+                @foreach (var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+            </ul>
+        }
+
+    <form action="/Categorias/Adicionar" method="post">
+        <div class="form-group">
+            <label for="Descricao">Descricao: </label>
+            <input id="Descricao" name="Descricao" class="form-group" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="CategoriaPaiId">ID da Categoria Pai (opcional): </label>
+            <input id="CategoriaPaiId" name="CategoriaPaiId" class="form-group" type="text" />
+        </div>
+
+        <div class="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Confirmar" />
+        </div>
+    </form>
+    </div>
 </div>

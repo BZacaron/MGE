@@ -1,7 +1,59 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MGE.ViewModels.Itens.RemoverViewModel
+@{
+    ViewData["Title"] = "Remover";
 }
 
-<div class="text-center">
-    <p>Itens</p>
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Itens">Voltar para listagem</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Remover item <strong>#@Model.Id</strong></h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.FormMensagensErro != null)
+        {
+            <ul class="alert alert-danger">
+                @foreach (var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+            </ul>
+        }
+
+    <form action="/Itens/Remover/@Model.Id" method="post">
+        <div class="form-group">
+            <p>Dados do Item a remover</p>
+            <ul>
+                <li>
+                    <strong>Id: </strong>@Model.Id
+                </li>
+                <li>
+                    <strong>Categoria: </strong> @Model.Categoria
+                </li>
+                <li>
+                    <strong>Nome: </strong> @Model.Nome
+                </li>
+                <li>
+                    <strong>Descrição:</strong> @Model.Descricao
+                </li>
+                <li>
+                    <strong>Data de fabricação:</strong> @Model.DataFabricacao
+                </li>
+                <li>
+                    <strong>Consumo de watts por hora:</strong> @Model.ConsumoWatts
+                </li>
+                <li>
+                    <strong>Horas de uso diário:</strong> @Model.HorasUsoDiario
+                </li>
+            </ul>
+            <p><strong>Atenção: </strong>Essa operação não pode ser desfeita!</p>
+        </div>
+
+        <div class="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Confirmar" />
+        </div>
+    </form>
+    </div>
 </div>

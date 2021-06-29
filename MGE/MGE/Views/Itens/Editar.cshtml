@@ -1,7 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MGE.ViewModels.Itens.EditarViewModel
+@{
+    ViewData["Title"] = "Editar";
 }
 
-<div class="text-center">
-    <p>Itens</p>
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Itens">Voltar para a listagem</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Editar Item <strong>#@Model.Id</strong></h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.FormMensagensErro != null)
+        {
+            <ul class="alert alert-danger">
+                @foreach (var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+            </ul>
+        }
+
+    <form action="/Itens/Editar/@Model.Id" method="post">
+        <div class="form-group">
+            <label for="Categoria">Categoria pertencente: </label>
+            <input id="Categoria" name="Categoria" class="form-control" type="text" value="@Model.Categoria" />
+        </div>
+        <div class="form-group">
+            <label for="Nome">Nome: </label>
+            <input id="Nome" name="Nome" class="form-control" type="text" value="@Model.Nome" />
+        </div>
+        <div class="form-group">
+            <label for="Descricao">Descricao: </label>
+            <input id="Descricao" name="Descricao" class="form-control" type="text" value="@Model.Descricao" />
+        </div>
+        <div class="form-group">
+            <label for="DataFabricacao">Data de fabricação: </label>
+            <input id="DataFabricacao" name="DataFabricacao" class="form-control" type="date" value="@Model.DataFabricacao" />
+        </div>
+        <div class="form-group">
+            <label for="ConsumoWatts">Consumo de watts/h: </label>
+            <input id="ConsumoWatts" name="ConsumoWatts" class="form-control" type="text" value="@Model.ConsumoWatts" />
+        </div>
+        <div class="form-group">
+            <label for="HorasUsoDiario">Horas de uso diário: </label>
+            <input id="HorasUsoDiario" name="HorasUsoDiario" class="form-control" type="text" value="@Model.HorasUsoDiario" />
+        </div>
+
+        <div input="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Salvar alterações" />
+        </div>
+    </form>
+    </div>
 </div>

@@ -1,7 +1,58 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using MGE.ViewModels.Itens
+@model MGE.ViewModels.Itens.IndexViewModel
+@{
+    ViewData["Title"] = "Listagem";
 }
 
-<div class="text-center">
-    <p>Itens</p>
+<div class="mb-2">
+    <a class="btn btn-primary" href="/Itens/Adicionar">Adicionar</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Listagem de Itens</h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.MensagemSucesso != null)
+        {
+            <p class="alert alert-success">@Model.MensagemSucesso</p>
+        }
+        @if (@Model.MensagemErro != null)
+        {
+            <p class="alert alert-danger">@Model.MensagemErro</p>
+        }
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Categoria ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Data de fabricação</th>
+                <th>Consumo em watts</th>
+                <th>Horas de uso/dia</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Itens itens in @Model.Itens)
+            {
+                <tr>
+                    <td>@itens.Id</td>
+                    <td>@itens.Categoria</td>
+                    <td class="text-center">@itens.Nome</td>
+                    <td class="text-center">@itens.Descricao</td>
+                    <td class="text-center">@itens.DataFabricacao</td>
+                    <td class="text-center">@itens.ConsumoWatts</td>
+                    <td class="text-center">@itens.HorasUsoDiario</td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm" href="/Itens/Editar/@itens.Id">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/Itens/Remover/@itens.Id">Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
 </div>

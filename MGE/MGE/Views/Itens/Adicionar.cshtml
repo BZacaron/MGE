@@ -1,7 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MGE.ViewModels.Itens.AdicionarViewModel
+@{
+    ViewData["Title"] = "Adicionar";
 }
 
-<div class="text-center">
-    <p>Itens</p>
+<div class="mb-2">
+    <a class="btn btn-secondary" href="/Itens">Voltar para a lista</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Adicionar Itens</h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.FormMensagensErro != null)
+        {
+            <ul class="alert alert-danger">
+                @foreach (var msgErro in @Model.FormMensagensErro)
+                {
+                    <li>@msgErro</li>
+                }
+            </ul>
+        }
+
+    <form action="/Itens/Adicionar" method="post">
+        <div class="form-group">
+            <label for="Categoria">Categoria pertencente: </label>
+            <input id="Categoria" name="Categoria" class="form-group" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="Nome">Nome: </label>
+            <input id="Nome" name="Nome" class="form-group" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="Descricao">Descrição: </label>
+            <input id="Descricao" name="Descricao" class="form-group" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="DataFabricacao">Data de Fabricação: </label>
+            <input id="DataFabricacao" name="DataFabricacao" class="form-group" type="date" />
+        </div>
+        <div class="form-group">
+            <label for="ConsumoWatts">Consumo de watts/h: </label>
+            <input id="ConsumoWatts" name="ConsumoWatts" class="form-group" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="HorasUsoDiario">Horas de uso diário: </label>
+            <input id="HorasUsoDiario" name="HorasUsoDiario" class="form-group" type="text" />
+        </div>
+
+        <div class="form-group">
+            <input name="confirmar" class="btn btn-primary" type="submit" value="Confirmar" />
+        </div>
+    </form>
+    </div>
 </div>

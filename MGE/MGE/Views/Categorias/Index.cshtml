@@ -1,7 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using MGE.ViewModels.Categorias
+@model MGE.ViewModels.Categorias.IndexViewModel
+@{
+    ViewData["Title"] = "Listagem";
 }
 
-<div class="text-center">
-    <p>Categorias</p>
+<div class="mb-2">
+    <a class="btn btn-primary" href="/Categorias/Adicionar">Adicionar</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Listagem de Categorias</h2>
+    </div>
+    <div class="card-body">
+        @if (@Model.MensagemSucesso != null)
+        {
+            <p class="alert alert-success">@Model.MensagemSucesso</p>
+        }
+        @if (@Model.MensagemErro != null)
+        {
+            <p class="alert alert-danger">@Model.MensagemErro</p>
+        }
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>ID da Categoria Pai</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Categorias categorias in @Model.Categorias)
+            {
+                <tr>
+                    <td>@categorias.Id</td>
+                    <td>@categorias.Descricao</td>
+                    <td>@categorias.CategoriaPaiId</td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm" href="/Categorias/Editar/@categorias.Id">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/Categorias/Remover/@categorias.Id">Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
 </div>
