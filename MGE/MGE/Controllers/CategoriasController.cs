@@ -30,12 +30,16 @@ namespace MGE.Controllers
 
             foreach (CategoriasEntity categoriasEntity in listaDeCategorias)
             {
+                var catPai = "N/A";
+                if (categoriasEntity.CategoriaPai != null)
+                    catPai = categoriasEntity.CategoriaPai.ToString();
+
                 viewModel.Categorias.Add(new Categorias()
                 {
                     Id = categoriasEntity.Id.ToString(),
                     Descricao = categoriasEntity.Descricao,
-                    CategoriaPaiId = categoriasEntity.CategoriaPaiId.ToString("N"),
-                });
+                    CategoriaPai = catPai
+                }); ;
             }
 
             return View(viewModel);
@@ -81,18 +85,22 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int param)
+        public IActionResult Editar(int id)
         {
             try
             {
-                var entidadeAEditar = _categoriasService.ObterPorId(param);
+                var entidadeAEditar = _categoriasService.ObterPorId(id);
+
+                var catPai = "N/A";
+                if (entidadeAEditar.CategoriaPai != null)
+                    catPai = entidadeAEditar.CategoriaPai.ToString();
 
                 var viewModel = new EditarViewModel()
                 {
                     FormMensagensErro = (string[])TempData["formMensagensErro"],
                     Id = entidadeAEditar.Id.ToString(),
                     Descricao = entidadeAEditar.Descricao,
-                    CategoriaPaiId = entidadeAEditar.CategoriaPaiId.ToString("N"),
+                    CategoriaPai = catPai
                 };
 
                 return View(viewModel);
@@ -106,7 +114,7 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Editar(int param, EditarRequestModel requestModel)
+        public RedirectToActionResult Editar(int id, EditarRequestModel requestModel)
         {
             var listaDeErros = requestModel.ValidarEFiltrar();
             if (listaDeErros.Count > 0)
@@ -118,7 +126,7 @@ namespace MGE.Controllers
 
             try
             {
-                _categoriasService.Editar(param, requestModel);
+                _categoriasService.Editar(id, requestModel);
                 TempData["formMensagemSucesso"] = "Categoria editada com sucesso";
 
                 return RedirectToAction("Index");
@@ -133,17 +141,17 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Remover(int param)
+        public IActionResult Remover(int id)
         {
             try
             {
-                var entidadeARemover = _categoriasService.ObterPorId(param);
+                var entidadeARemover = _categoriasService.ObterPorId(id);
 
                 var viewModel = new RemoverViewModel()
                 {
                     Id = entidadeARemover.Id.ToString(),
                     Descricao = entidadeARemover.Descricao,
-                    CategoriaPaiId = entidadeARemover.CategoriaPaiId.ToString("N"),
+                    CategoriaPai = entidadeARemover.CategoriaPai.ToString(),
                 };
 
                 return View(viewModel);
@@ -157,11 +165,11 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Remover(int param, object requestModel)
+        public RedirectToActionResult Remover(int id, object requestModel)
         {
             try
             {
-                _categoriasService.Remover(param);
+                _categoriasService.Remover(id);
                 TempData["formMensagemSucesso"] = "Categoria excluida com sucesso";
 
                 return RedirectToAction("Index");

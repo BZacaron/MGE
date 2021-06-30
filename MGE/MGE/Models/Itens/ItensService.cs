@@ -1,5 +1,6 @@
 ﻿using MGE.Data;
 using MGE.Models.Categorias;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace MGE.Models.Itens
 
         public ICollection<ItensEntity> ObterTodos()
         {
-            return _databaseContext.Itens.ToList();
+            return _databaseContext.Itens.Include(c => c.Categoria).ToList();
         }
 
         public ItensEntity ObterPorId(int id)

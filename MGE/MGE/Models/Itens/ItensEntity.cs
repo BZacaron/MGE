@@ -11,7 +11,7 @@ namespace MGE.Models.Itens
         public Guid Id { get; set; }
         public CategoriasEntity Categoria { get; set; }
         public string Nome { get; set; }
-        public string Descricao { get; set; }
+        public string? Descricao { get; set; }
         public DateTime DataFabricacao { get; set; }
         public decimal ConsumoWatts { get; set; }
         public int HorasUsoDiario { get; set; }

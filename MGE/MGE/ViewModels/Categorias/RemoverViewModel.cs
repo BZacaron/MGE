@@ -10,6 +10,6 @@ namespace MGE.ViewModels.Categorias
         public string[] FormMensagensErro { get; set; }
         public string Id { get; set; }
         public string Descricao { get; set; }
-        public string CategoriaPaiId { get; set; }
+        public string CategoriaPai { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace MGE.Models.Categorias
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public int CategoriaPaiId { get; set; }
+        public CategoriasEntity? CategoriaPai { get; set; }
     }
 }

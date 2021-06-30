@@ -30,12 +30,16 @@ namespace MGE.Controllers
 
             foreach (ItensEntity itensEntity in listaDeItens)
             {
+                var desc = "N/A";
+                if (itensEntity.Descricao != null)
+                    desc = itensEntity.Descricao;
+
                 viewModel.Itens.Add(new Itens()
                 {
                     Id = itensEntity.Id.ToString(),
-                    Categoria = itensEntity.Categoria.ToString(),
+                    Categoria = itensEntity.Categoria.Id.ToString(),
                     Nome = itensEntity.Nome,
-                    Descricao = itensEntity.Descricao,
+                    Descricao = desc,
                     DataFabricacao = itensEntity.DataFabricacao.ToString("d"),
                     ConsumoWatts = itensEntity.ConsumoWatts.ToString("N"),
                     HorasUsoDiario = itensEntity.HorasUsoDiario.ToString("N")
@@ -84,11 +88,11 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int param)
+        public IActionResult Editar(int id)
         {
             try
             {
-                var entidadeAEditar = _itensService.ObterPorId(param);
+                var entidadeAEditar = _itensService.ObterPorId(id);
 
                 var viewModel = new EditarViewModel()
                 {
@@ -113,7 +117,7 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Editar(int param, EditarRequestModel requestModel)
+        public RedirectToActionResult Editar(int id, EditarRequestModel requestModel)
         {
             var listaDeErros = requestModel.ValidarEFiltrar();
             if (listaDeErros.Count > 0)
@@ -125,7 +129,7 @@ namespace MGE.Controllers
 
             try
             {
-                _itensService.Editar(param, requestModel);
+                _itensService.Editar(id, requestModel);
                 TempData["formMensagemSucesso"] = "Item editado com sucesso";
 
                 return RedirectToAction("Index");
@@ -140,11 +144,11 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Remover(int param)
+        public IActionResult Remover(int id)
         {
             try
             {
-                var entidadeARemover = _itensService.ObterPorId(param);
+                var entidadeARemover = _itensService.ObterPorId(id);
 
                 var viewModel = new RemoverViewModel()
                 {
@@ -168,11 +172,11 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Remover(int param, object requestModel)
+        public RedirectToActionResult Remover(int id, object requestModel)
         {
             try
             {
-                _itensService.Remover(param);
+                _itensService.Remover(id);
                 TempData["formMensagemSucesso"] = "Item excluido com sucesso";
 
                 return RedirectToAction("Index");

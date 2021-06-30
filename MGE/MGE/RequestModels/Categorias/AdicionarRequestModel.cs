@@ -9,7 +9,7 @@ namespace MGE.RequestModels.Categorias
     public class AdicionarRequestModel : IDadosBasicosCategoriasModel
     {
         public string Descricao { get; set; }
-        public string CategoriaPaiId { get; set; }
+        public string CategoriaPai { get; set; }
 
         //Validação a nível de controller
         public ICollection<string> ValidarEFiltrar()

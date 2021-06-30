@@ -21,6 +21,6 @@ namespace MGE.ViewModels.Categorias
     {
         public string Id { get; set; }
         public string Descricao { get; set; }
-        public string CategoriaPaiId { get; set; }
+        public string? CategoriaPai { get; set; }
     }
 }

@@ -80,8 +80,9 @@ namespace MGE.Models.Categorias
 
             try
             {
-                var valor = int.Parse(dadosBasicos.CategoriaPaiId);
-                entidade.CategoriaPaiId = valor;
+                var valor = int.Parse(dadosBasicos.CategoriaPai);
+                var categoria = ObterPorId(valor);
+                entidade.CategoriaPai = categoria;
             }
             catch
             {
@@ -95,6 +96,6 @@ namespace MGE.Models.Categorias
     public interface IDadosBasicosCategoriasModel
     {
         public string Descricao { get; set; }
-        public string CategoriaPaiId { get; set; }
+        public string CategoriaPai { get; set; }
     }
 }

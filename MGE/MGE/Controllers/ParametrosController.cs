@@ -78,11 +78,11 @@ namespace MGE.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar(int param)
+        public IActionResult Editar(int id)
         {
             try
             {
-                var entidadeAEditar = _parametrosService.ObterPorId(param);
+                var entidadeAEditar = _parametrosService.ObterPorId(id);
 
                 var viewModel = new EditarViewModel()
                 {
@@ -102,7 +102,7 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Editar(int param, EditarRequestModel requestModel)
+        public RedirectToActionResult Editar(int id, EditarRequestModel requestModel)
         {
             var listaDeErros = requestModel.ValidarEFiltrar();
             if (listaDeErros.Count > 0)
@@ -113,7 +113,7 @@ namespace MGE.Controllers
             }
 
             try {
-                _parametrosService.Editar(param, requestModel);
+                _parametrosService.Editar(id, requestModel);
                 TempData["formMensagemSucesso"] = "Parâmetro editado com sucesso";
 
                 return RedirectToAction("Index");
@@ -125,11 +125,11 @@ namespace MGE.Controllers
         }
 
         [HttpGet]
-        public IActionResult Remover(int param)
+        public IActionResult Remover(int id)
         {
             try
             {
-                var entidadeARemover = _parametrosService.ObterPorId(param);
+                var entidadeARemover = _parametrosService.ObterPorId(id);
 
                 var viewModel = new RemoverViewModel()
                 {
@@ -148,11 +148,11 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Remover(int param, object requestModel)
+        public RedirectToActionResult Remover(int id, object requestModel)
         {
             try
             {
-                _parametrosService.Remover(param);
+                _parametrosService.Remover(id);
                 TempData["formMensagemSucesso"] = "Parâmetro excluido com sucesso";
 
                 return RedirectToAction("Index");

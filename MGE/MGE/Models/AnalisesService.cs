@@ -35,7 +35,9 @@ namespace MGE.Models
 
             foreach (var categoriasEntity in todasCategorias)
             {
-                var itensDaCategoria = _itensService.ObterTodosPorCategoria(categoriasEntity.Id);
+                var idCategoria = categoriasEntity.Id;
+
+                var itensDaCategoria = _itensService.ObterTodosPorCategoria(idCategoria);
 
                 decimal consumoMensalItens = 0;
 
