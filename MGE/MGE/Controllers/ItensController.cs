@@ -88,7 +88,7 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int id)
+        public IActionResult Editar(Guid id)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Editar(int id, EditarRequestModel requestModel)
+        public RedirectToActionResult Editar(Guid id, EditarRequestModel requestModel)
         {
             var listaDeErros = requestModel.ValidarEFiltrar();
             if (listaDeErros.Count > 0)
@@ -144,7 +144,7 @@ namespace MGE.Controllers
 
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public IActionResult Remover(Guid id)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace MGE.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Remover(int id, object requestModel)
+        public RedirectToActionResult Remover(Guid id, object requestModel)
         {
             try
             {

@@ -56,11 +56,46 @@ namespace MGE.Models
 
             return listaDeConsumos.OrderByDescending(c => c.ConsumoMensalKwh).Take(3).ToList();
         }
+
+        public ICollection<ConsumoItem> ItensQueMaisConsomem()
+        {
+            var parametroAtivo = _parametrosService.ObterParametroAtivo();
+            var todosItens = _itensService.ObterTodos();
+
+            var listaDeConsumos = new Collection<ConsumoItem>();
+
+            foreach (var itemEntity in todosItens)
+            {
+                var idItem = itemEntity.Id;
+
+                decimal consumoMensalItens = 0;
+
+                /*foreach (var itensEntity in todosItens)
+                {
+                    consumoMensalItens += itensEntity.CalcularGastoEnergeticoMensalKwh();
+                }*/
+
+                listaDeConsumos.Add(new ConsumoItem()
+                {
+                    Item = itemEntity.Nome,
+                    ConsumoMensalKwh = itemEntity.CalcularGastoEnergeticoMensalKwh(),
+                    ValorMensalKwh = itemEntity.CalcularGastoEnergeticoMensalKwh() * parametroAtivo.ValorKwh
+                });
+            }
+            return listaDeConsumos.OrderByDescending(i => i.ConsumoMensalKwh).Take(5).ToList();
+        }
     }
 
     public class ConsumoCategoria
     {
         public string Categoria { get; set; }
+        public decimal ConsumoMensalKwh { get; set; }
+        public decimal ValorMensalKwh { get; set; }
+    }
+
+    public class ConsumoItem
+    {
+        public string Item { get; set; }
         public decimal ConsumoMensalKwh { get; set; }
         public decimal ValorMensalKwh { get; set; }
     }

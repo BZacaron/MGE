@@ -24,6 +24,7 @@ namespace MGE.Controllers
             var viewModel = new IndexViewModel();
 
             var categoriasQueMaisConsomem = _analisesService.CategoriasQueMaisConsomem();
+            var itensQueMaisConsomem = _analisesService.ItensQueMaisConsomem();
 
             var posicao = 0;
             foreach (var consumoCategoria in categoriasQueMaisConsomem)
@@ -36,6 +37,19 @@ namespace MGE.Controllers
                     ValorMensalKwh = consumoCategoria.ValorMensalKwh.ToString("C")
                 });
             }
+
+            posicao = 0;
+            foreach (var consumoItem in itensQueMaisConsomem)
+            {
+                viewModel.ItensQueMaisConsomem.Add(new ItemQueConsome
+                {
+                    Posicao = (posicao += 1).ToString(),
+                    NomeItem = consumoItem.Item,
+                    ConsumoMensalKwh = consumoItem.ConsumoMensalKwh.ToString("N"),
+                    ValorMensalKwh = consumoItem.ValorMensalKwh.ToString("C")
+                }) ;
+            }
+
             return View(viewModel);
         }
 

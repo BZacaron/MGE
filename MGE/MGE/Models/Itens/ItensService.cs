@@ -24,7 +24,7 @@ namespace MGE.Models.Itens
             return _databaseContext.Itens.Include(c => c.Categoria).ToList();
         }
 
-        public ItensEntity ObterPorId(int id)
+        public ItensEntity ObterPorId(Guid id)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace MGE.Models.Itens
             return novaEntidade;
         }
 
-        public ItensEntity Editar(int id, IDadosBasicosItensModel dadosBasicos)
+        public ItensEntity Editar(Guid id, IDadosBasicosItensModel dadosBasicos)
         {
             var entidadeAEditar = ObterPorId(id);
             entidadeAEditar = ValidarDadosBasicos(dadosBasicos, entidadeAEditar);
@@ -59,7 +59,7 @@ namespace MGE.Models.Itens
             return entidadeAEditar;
         }
 
-        public bool Remover(int id)
+        public bool Remover(Guid id)
         {
             var entidade = ObterPorId(id);
             _databaseContext.Itens.Remove(entidade);
