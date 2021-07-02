@@ -6,16 +6,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using MGE.ViewModels.Itens;
 using MGE.RequestModels.Itens;
+using MGE.Models.Categorias;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MGE.Controllers
 {
     public class ItensController : Controller
     {
         private readonly ItensService _itensService;
+        private readonly CategoriasService _categoriasService;
 
-        public ItensController(ItensService itensService)
+        public ItensController(ItensService itensService, CategoriasService categoriasService)
         {
             _itensService = itensService;
+            _categoriasService = categoriasService;
         }
 
         public IActionResult Index()
@@ -37,7 +41,7 @@ namespace MGE.Controllers
                 viewModel.Itens.Add(new Itens()
                 {
                     Id = itensEntity.Id.ToString(),
-                    Categoria = itensEntity.Categoria.Id.ToString(),
+                    Categoria = itensEntity.Categoria.Descricao,
                     Nome = itensEntity.Nome,
                     Descricao = desc,
                     DataFabricacao = itensEntity.DataFabricacao.ToString("d"),
@@ -52,10 +56,21 @@ namespace MGE.Controllers
         [HttpGet]
         public IActionResult Adicionar()
         {
+            var listaCategorias = _categoriasService.ObterTodos();
+
             var viewModel = new AdicionarViewModel()
             {
                 FormMensagensErro = (string[])TempData["formMensagensErro"]
             };
+
+            foreach(var categoria in listaCategorias)
+            {
+                viewModel.Categorias.Add(new SelectListItem()
+                {
+                    Value = categoria.Id.ToString(),
+                    Text = categoria.Descricao
+                });
+            }
 
             return View(viewModel);
         }
@@ -92,19 +107,27 @@ namespace MGE.Controllers
         {
             try
             {
+                var listaCategorias = _categoriasService.ObterTodos();
                 var entidadeAEditar = _itensService.ObterPorId(id);
 
                 var viewModel = new EditarViewModel()
                 {
                     FormMensagensErro = (string[])TempData["formMensagensErro"],
                     Id = entidadeAEditar.Id.ToString(),
-                    Categoria = entidadeAEditar.Categoria.ToString(),
                     Nome = entidadeAEditar.Nome,
                     Descricao = entidadeAEditar.Descricao,
                     DataFabricacao = entidadeAEditar.DataFabricacao.ToString("d"),
                     ConsumoWatts = entidadeAEditar.ConsumoWatts.ToString("N"),
                     HorasUsoDiario = entidadeAEditar.HorasUsoDiario.ToString("N"),
                 };
+                foreach (var categoria in listaCategorias)
+                {
+                    viewModel.Categorias.Add(new SelectListItem()
+                    {
+                        Value = categoria.Id.ToString(),
+                        Text = categoria.Descricao
+                    });
+                }
 
                 return View(viewModel);
             }
@@ -153,10 +176,8 @@ namespace MGE.Controllers
                 var viewModel = new RemoverViewModel()
                 {
                     Id = entidadeARemover.Id.ToString(),
-                    Categoria = entidadeARemover.Categoria.ToString(),
                     Nome = entidadeARemover.Nome,
                     Descricao = entidadeARemover.Descricao,
-                    DataFabricacao = entidadeARemover.DataFabricacao.ToString("d"),
                     ConsumoWatts = entidadeARemover.ConsumoWatts.ToString("N"),
                     HorasUsoDiario = entidadeARemover.HorasUsoDiario.ToString("N"),
                 };
