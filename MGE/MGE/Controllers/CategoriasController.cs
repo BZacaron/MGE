@@ -147,11 +147,15 @@ namespace MGE.Controllers
             {
                 var entidadeARemover = _categoriasService.ObterPorId(id);
 
+                var catPai = "N/A";
+                if (entidadeARemover.CategoriaPai != null)
+                    catPai = entidadeARemover.CategoriaPai.ToString();
+
                 var viewModel = new RemoverViewModel()
                 {
                     Id = entidadeARemover.Id.ToString(),
                     Descricao = entidadeARemover.Descricao,
-                    CategoriaPai = entidadeARemover.CategoriaPai.ToString(),
+                    CategoriaPai = catPai,
                 };
 
                 return View(viewModel);

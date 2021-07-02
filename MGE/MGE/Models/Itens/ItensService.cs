@@ -102,15 +102,7 @@ namespace MGE.Models.Itens
                 throw new Exception("O nome possui um formato inválido");
             }
 
-            try
-            {
-                var valor = dadosBasicos.Descricao;
-                entidade.Descricao = valor;
-            }
-            catch
-            {
-                throw new Exception("A descrição possui um formato inválido");
-            }
+                entidade.Descricao = dadosBasicos.Descricao;
 
             if (dadosBasicos.DataFabricacao == null)
             {

@@ -68,12 +68,7 @@ namespace MGE.Models
             {
                 var idItem = itemEntity.Id;
 
-                decimal consumoMensalItens = 0;
-
-                /*foreach (var itensEntity in todosItens)
-                {
-                    consumoMensalItens += itensEntity.CalcularGastoEnergeticoMensalKwh();
-                }*/
+                //decimal consumoMensalItens = 0;
 
                 listaDeConsumos.Add(new ConsumoItem()
                 {
@@ -83,6 +78,49 @@ namespace MGE.Models
                 });
             }
             return listaDeConsumos.OrderByDescending(i => i.ConsumoMensalKwh).Take(5).ToList();
+        }
+
+        public decimal TotalConsumoWatts()
+        {
+            var todosItens = _itensService.ObterTodos();
+
+            decimal totalConsumoMensalWatts = 0;
+
+            foreach (var itemEntity in todosItens)
+            {
+                totalConsumoMensalWatts += itemEntity.ConsumoWatts;
+            }
+
+            return totalConsumoMensalWatts * 30;
+        }
+
+        public decimal TotalCustoMensal()
+        {
+            var parametroAtivo = _parametrosService.ObterParametroAtivo();
+
+            return TotalConsumoWatts() * parametroAtivo.ValorKwh;
+        }
+
+        public string FaixaConsumo()
+        {
+            var parametroAtivo = _parametrosService.ObterParametroAtivo();
+            var consumo = TotalConsumoWatts() / 30;
+
+            var alto = parametroAtivo.FaixaConsumoAlto;
+            var medio = parametroAtivo.FaixaConsumoMedio;
+
+            if (consumo >= alto)
+            {
+                return "Alto";
+            }
+            else if (consumo >= medio && consumo < alto)
+            {
+                return "Médio";
+            }
+            else
+            {
+                return "Baixo";
+            }
         }
     }
 
@@ -99,4 +137,9 @@ namespace MGE.Models
         public decimal ConsumoMensalKwh { get; set; }
         public decimal ValorMensalKwh { get; set; }
     }
+
+    /*public class ConsumoMensalWatts
+    {
+        public decimal Consumo { get; set; }
+    }*/
 }

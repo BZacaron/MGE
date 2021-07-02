@@ -25,6 +25,9 @@ namespace MGE.Controllers
 
             var categoriasQueMaisConsomem = _analisesService.CategoriasQueMaisConsomem();
             var itensQueMaisConsomem = _analisesService.ItensQueMaisConsomem();
+            var totalConsumoWatts = _analisesService.TotalConsumoWatts();
+            var totalCustoMensal = _analisesService.TotalCustoMensal();
+            var faixaConsumo = _analisesService.FaixaConsumo();
 
             var posicao = 0;
             foreach (var consumoCategoria in categoriasQueMaisConsomem)
@@ -49,6 +52,23 @@ namespace MGE.Controllers
                     ValorMensalKwh = consumoItem.ValorMensalKwh.ToString("C")
                 }) ;
             }
+
+            if(faixaConsumo == "Alto")
+            {
+                viewModel.CorConsumo = "red";
+            }
+            else if (faixaConsumo == "Médio")
+            {
+                viewModel.CorConsumo = "yellow";
+            }
+            else
+            {
+                viewModel.CorConsumo = "green";
+            }
+
+            viewModel.TotalConsumoWatts = totalConsumoWatts.ToString("N");
+            viewModel.TotalCustoMensal = totalCustoMensal.ToString("C");
+            viewModel.FaixaConsumo = faixaConsumo;
 
             return View(viewModel);
         }

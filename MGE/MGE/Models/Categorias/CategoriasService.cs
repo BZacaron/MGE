@@ -81,7 +81,7 @@ namespace MGE.Models.Categorias
             try
             {
                 var valor = int.Parse(dadosBasicos.CategoriaPai);
-                var categoria = ObterPorId(valor);
+                var categoria = ObterPorId(1);
                 entidade.CategoriaPai = categoria;
             }
             catch

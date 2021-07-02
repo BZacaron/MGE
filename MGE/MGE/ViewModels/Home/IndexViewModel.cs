@@ -9,6 +9,10 @@ namespace MGE.ViewModels.Home
     {
         public ICollection<CategoriaQueConsome> CategoriasQueMaisConsomem { get; set; }
         public ICollection<ItemQueConsome> ItensQueMaisConsomem { get; set; }
+        public string TotalConsumoWatts { get; set; }
+        public string TotalCustoMensal { get; set; }
+        public string FaixaConsumo { get; set; }
+        public string CorConsumo { get; set; }
 
         public IndexViewModel()
         {

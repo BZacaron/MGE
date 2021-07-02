@@ -5,62 +5,90 @@
 
 <div class="text-center">
     <h1 class="display-4">Mapa de Gastos Energéticos</h1>
-
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title">Categorias que mais consomem energia</h2>
-        </div>
-        <div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Posição</th>
-                        <th>Categoria</th>
-                        <th>Consumo Mensal</th>
-                        <th>Valor Mensal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var consumoCategoria in @Model.CategoriasQueMaisConsomem)
-                    {
-                        <tr>
-                            <td>@consumoCategoria.Posicao</td>
-                            <td>@consumoCategoria.NomeCategoria</td>
-                            <td>@consumoCategoria.ConsumoMensalKwh</td>
-                            <td>@consumoCategoria.ValorMensalKwh</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
     <br />
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title">Itens que mais consomem energia</h2>
-        </div>
-        <div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Posição</th>
-                        <th>Item</th>
-                        <th>Consumo Mensal</th>
-                        <th>Valor Mensal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var consumoItem in @Model.ItensQueMaisConsomem)
-                    {
-                        <tr>
-                            <td>@consumoItem.Posicao</td>
-                            <td>@consumoItem.NomeItem</td>
-                            <td>@consumoItem.ConsumoMensalKwh</td>
-                            <td>@consumoItem.ValorMensalKwh</td>
-                        </tr>
-                    }
-                </tbody>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Relatório geral de consumo</h2>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                            <h5>Total gasto em watts:</h5>
+                            <p>@Model.TotalConsumoWatts</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h5>Valor mensal:</h5>
+                            <p>@Model.TotalCustoMensal</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="background: @Model.CorConsumo;">
+                            <h5>Faixa de consumo:</h5>
+                            <p>@Model.FaixaConsumo</p>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
+        <br />
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Categorias que mais consomem energia</h2>
+            </div>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Categoria</th>
+                            <th>Consumo Mensal</th>
+                            <th>Valor Mensal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var consumoCategoria in @Model.CategoriasQueMaisConsomem)
+                        {
+                            <tr>
+                                <td>@consumoCategoria.Posicao</td>
+                                <td>@consumoCategoria.NomeCategoria</td>
+                                <td>@consumoCategoria.ConsumoMensalKwh</td>
+                                <td>@consumoCategoria.ValorMensalKwh</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Itens que mais consomem energia</h2>
+            </div>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Item</th>
+                            <th>Consumo Mensal</th>
+                            <th>Valor Mensal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var consumoItem in @Model.ItensQueMaisConsomem)
+                        {
+                            <tr>
+                                <td>@consumoItem.Posicao</td>
+                                <td>@consumoItem.NomeItem</td>
+                                <td>@consumoItem.ConsumoMensalKwh</td>
+                                <td>@consumoItem.ValorMensalKwh</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
